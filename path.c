@@ -19,6 +19,6 @@ void _path(char *bin, char *path, char **full)
 		*full = malloc(strlen(path) + strlen(bin) + 1);
 		strcpy(*full, path);
 		strcat(*full, bin);
-		
+
 	}
 }
