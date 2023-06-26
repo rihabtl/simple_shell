@@ -68,18 +68,18 @@ ssize_t read_command(char **line, size_t *len)
 	ssize_t read = 0;
 
 	if (isatty(STDIN_FILENO))
-    {
-        write(1, "($) ", 4);
-    }
+	{
+		write(1, "($) ", 4);
+	}
 	read = getline(line, len, stdin);
 	if (read == -1)
-    {
-        if (!isatty(STDIN_FILENO))
-        {
-            return (-1);
-        }
-        free(line);
-        exit(EXIT_FAILURE);
-    }
+	{
+		if (!isatty(STDIN_FILENO))
+		{
+			return (-1);
+		}
+		free(line);
+		exit(EXIT_FAILURE);
+	}
 	return (read);
 }
