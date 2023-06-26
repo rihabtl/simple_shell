@@ -26,7 +26,13 @@ int execute_command(char **arg, char *full, char *line)
 		}
 		else
 		{
-			execve(full, arg, environ);
+			if(execve(full, arg, environ) == -1)
+			{
+				free(full);
+            	free(line);
+            	perror("./shell");
+            	exit(EXIT_FAILURE);
+			}
 		}
 		fprintf(stderr, "./shell: %s: command not found\n", line);
 		exit(EXIT_FAILURE);
@@ -36,12 +42,13 @@ int execute_command(char **arg, char *full, char *line)
 		int status;
 
 		waitpid(child_pid, &status, 0);
+		free(full);
 
 		if (WIFEXITED(status))
 			return (WEXITSTATUS(status));
 
-			fprintf(stderr, "./shell: %s: terminated abnormally\n", line);
-			return (-1);
+		fprintf(stderr, "./shell: %s: terminated abnormally\n", line);
+		return (-1);
 	}
 	else
 	{

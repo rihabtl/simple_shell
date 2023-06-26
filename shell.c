@@ -14,7 +14,6 @@ void shell(void)
 	/* stores the number of characters read by the read_cmd function */
 	int exitstatus = -1;
 
-	printf("$ ");
 	while ((read = read_command(&line, &len)) != -1)
 	{
 		line[read - 1] = (line[read - 1] == '\n') ? '\0' : line[read - 1];
@@ -40,7 +39,6 @@ void shell(void)
 				exitstatus = execute_command(arg, full, line);
 				break;
 		}
-		printf("$ ");
 	}
 
 	free(line);
