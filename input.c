@@ -69,7 +69,7 @@ ssize_t read_command(char **line, size_t *len)
 
 	if (isatty(STDIN_FILENO))
 	{
-		write(1, "($) ", 4);
+		write(1, "$ ", 2);
 	}
 	read = getline(line, len, stdin);
 	if (read == -1)

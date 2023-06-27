@@ -1,4 +1,25 @@
 #include "main.h"
+
+/**
+ * cmd_error - handles execution errors
+ *
+ * @full: full path that specifies the location of the exucutable file
+ * @arg: command and its arguments
+ * @line: user command
+*/
+
+void cmd_error(char *full, char **arg, char *line)
+{
+	if (execve(full, arg, environ) == -1)
+	{
+		free(full);
+		free(line);
+		perror("./shell");
+		exit(EXIT_FAILURE);
+	}
+}
+
+
 /**
  * execute_command - executes a command by forking a new process
  *@arg: command and its arguments
@@ -26,13 +47,7 @@ int execute_command(char **arg, char *full, char *line)
 		}
 		else
 		{
-			if (execve(full, arg, environ) == -1)
-			{
-				free(full);
-				free(line);
-				perror("./shell");
-				exit(EXIT_FAILURE);
-			}
+			cmd_error(full, arg, line);
 		}
 		fprintf(stderr, "./shell: %s: command not found\n", line);
 		exit(EXIT_FAILURE);
