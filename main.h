@@ -27,4 +27,5 @@ void handle_exit(char *arg[], char *line, int exitstatus);
 int check_if_numeric(const char *str);
 int remove_whitespace(char *str);
 void print_env(void);
+
 #endif
